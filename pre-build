@@ -7,11 +7,7 @@ DIR=/app
 COMMAND=$(cat <<EOF
 export DEBIAN_FRONTEND=noninteractive
 if [ -f $DIR/apt-repositories ]; then
-    apt-get update
-    apt-get install -y software-properties-common
-    cat "$DIR/apt-repositories" | while read repository; do
-        add-apt-repository -y "\$repository"
-    done
+    cp "$DIR/apt-repositories" /etc/apt/sources.list.d/newrepos.list
 fi
 if [ -f $DIR/apt-debconf ]; then
     cat "$DIR/apt-debconf" | while read conf; do
